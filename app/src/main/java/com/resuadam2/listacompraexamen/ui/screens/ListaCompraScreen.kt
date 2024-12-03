@@ -16,8 +16,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowDropDown
+
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -28,7 +27,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedIconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -123,7 +121,8 @@ fun ListaCompraScreen(
                         quantity = product.quantity.toString(),
                         increaseQuantity = { vm.increaseQuantity(product) },
                         decreaseQuantity = { vm.decreaseQuantity(product) },
-                        details = { onDetalleCompra(product.name, product.price.toString()) }
+                        details = { onDetalleCompra(product.name, product.price.toString()) },
+                        delete = { vm.removeProduct(product) }
                     )
                 }
             }
@@ -216,7 +215,8 @@ fun ShoppingListItem(
     quantity: String,
     increaseQuantity: () -> Unit,
     decreaseQuantity: () -> Unit,
-    details: () -> Unit
+    details: () -> Unit,
+    delete: () -> Unit
 ) {
     Row (
         modifier = Modifier
@@ -242,6 +242,9 @@ fun ShoppingListItem(
             Spacer(modifier = Modifier.width(16.dp))
             IconButton(onClick = details) {
                 Icon(imageVector = Icons.Filled.Info, contentDescription = "Details")
+            }
+            IconButton(onClick = delete) {
+                Icon(imageVector = Icons.Filled.Delete, contentDescription = "Delete item")
             }
         }
     }

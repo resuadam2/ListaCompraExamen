@@ -62,8 +62,9 @@ class ShoppingListViewModel : ViewModel() {
         updateTotalQuantityAndPrice()
     }
 
-    private fun removeProduct(product: Product) {
+    fun removeProduct(product: Product) {
         _products.remove(product)
+        updateTotalQuantityAndPrice()
     }
 
     private fun updateTotalQuantityAndPrice() {
